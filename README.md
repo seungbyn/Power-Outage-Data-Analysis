@@ -22,6 +22,7 @@ The steps I took to clean the data are as follows:
 * Replace null values with specifically np.nan in python.
     * Many of the null values in the data set were entered as 'NA' and not np.nan
 * Combine start/end date and start/end time values into date time objects for easier manipulation
+
 |  OBS  | POSTAL.CODE   | NERC.REGION   | CLIMATE.REGION     | CLIMATE.CATEGORY   | OUTAGE.START.DATE   | OUTAGE.START.TIME   |OUTAGE.RESTORATION.DATE   | OUTAGE.RESTORATION.TIME   | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   |   TOTAL.SALES |   HURRICANE.NAMES |   IND.PRICE |   TOTAL.CUSTOMERS |   OUTAGE.DURATION |   RES.SALES |   DEMAND.LOSS.MW |   CUSTOMERS.AFFECTED | OUTAGE.START        | OUTAGE.RESTORATION   |
 |     1 | MN   | MRO   | East North Central | normal  | 2011-07-01 00:00:00 | 17:00:00  | 2011-07-03 00:00:00       | 20:00:00                  | severe weather     | nan                     |   6.56252e+06 |               nan |        6.81 |           2595696 |              3060 | 2.33292e+06 |              nan |                70000 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |
 |     2 | MN            | MRO           | East North Central | normal             | 2014-05-11 00:00:00 | 18:38:00            | 2014-05-11 00:00:00       | 18:39:00                  | intentional attack | vandalism               |   5.28423e+06 |               nan |        6.49 |           2640737 |                 1 | 1.58699e+06 |              nan |                  nan | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |
