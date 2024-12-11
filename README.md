@@ -43,6 +43,7 @@ The following histogram depicts the distribution of power outages by outage dura
   frameborder="0"
 ></iframe>
 
+The following bar graph depicts the distributions of outage duration by climate region.
 <iframe
   src="assets/region_bar_graph.html"
   width="800"
