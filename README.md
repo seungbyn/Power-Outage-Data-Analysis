@@ -43,15 +43,52 @@ The following histogram depicts the distribution of power outages by outage dura
   frameborder="0"
 ></iframe>
 
+<iframe
+  src="assets/region_bar_graph.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 ### Bivariate Analysis
 The followng dataframe shows the mean outage duration for each of the climate regions. There seems to a general trend of lower mean outage durations for geographic locations that are more inland in the United States
 
-PUT IMAGE HERE
+|CLIMATE            |   OUTAGE.DURATION |
+|------------------:|
+|Central            |          2701.13  |
+|East North Central |          5352.04  |
+|Northeast          |          2991.66  |
+|Northwest          |          1284.5   |
+|South              |          2846.1   |
+|Southeast          |          2217.69  |
+|Southwest          |          1566.14  |
+|West               |          1628.33  |
+|West North Central |           696.562 |
+
+Central	2701.130890
+East North Central	5352.043796
+Northeast	2991.656977
+Northwest	1284.500000
+South	2846.100917
+Southeast	2217.686667
+Southwest	1566.136364
+West	1628.331707
+West North Central	
 
 ### Interesting Aggregates
 The following pivot table shows the total outage duration for each of the climate regions and climate categories that exist within the data. Although there does not seem to be a huge correlation, generally the areas that are geographically closer to the borders of the United States have higher total outage duration. 
 
-ADD GRAPH HERE
+|CLIMATE            |   cold |   normal |   warm |
+|------------------:|---------:|-------:|
+|Central            | 181991 |   273579 |  60346 |
+|East North Central | 249614 |   432240 |  51376 |
+|Northeast          | 442527 |   407039 | 179564 |
+|Northwest          |  41110 |    35947 |  79652 |
+|South              | 112712 |   409084 |  98654 |
+|Southeast          |  76818 |   169851 |  85984 |
+|Southwest          |  11981 |    13030 | 112809 |
+|West               | 111051 |   106236 | 116521 |
+|West North Central |   1000 |      199 |   9946 |
 
 ## Assessment of Missingness
 
@@ -63,7 +100,19 @@ Looking through the columns I believe that the 'DEMAND.LOSS' may be not missing 
 
 While testing for data that may be missing at random, I examined the missing values within the "HURRICANE.NAMES' column. The results of the permutation test regarding this missingness dependency made it clear that the missing values in 'HURRICANE.NAMES' was dependent on the column 'CAUSE.CATEGORY.' The following plot shows the distribution of values of the "CAUSE.CATEGORY' column when 'HURRICANE.NAMES' was non-null vs null. 
 
-PLOT HERE
+<iframe
+  src="assets/hurricane_true.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+<iframe
+  src="assets/hurricane_false.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 
 ## Hypothesis Testing
@@ -84,39 +133,29 @@ With these two sample populations I was able to find the mean outage duration of
 
 ### Problem Identification
 
-My prediction model will try to predict the outage duration given some information of the outage (location, time, customers served, price)
+The prediction probelm that I chose to pursue was a regression model. The response variable that I am trying to predict is outage duration, and I will evaluate the model's efficacy with R^2 as I feel that this will better show if my model is tracking patterns in the data. Accuracy was also an option to evaluate my model, however, given the relatively complex trends within the data it may be difficult to utilize pure accuracy to evaluate my model. 
 
-Clearly state your prediction problem and type (classification or regression). If you are building a classifier, make sure to state whether you are performing binary classification or multiclass classification. Report the response variable (i.e. the variable you are predicting) and why you chose it, the metric you are using to evaluate your model and why you chose it over other suitable metrics (e.g. accuracy vs. F1-score).
-
-Note: Make sure to justify what information you would know at the “time of prediction” and to only train your model using those features. For instance, if we wanted to predict your final exam grade, we couldn’t use your Final Project grade, because the project is only due after the final exam! Feel free to ask questions if you’re not sure.
+In terms of what data points are viable to use at the "time of prediction," I ruled out 'DEMAND.LOSS' and 'OUTAGE.RESTORATION.TIME' as they are both only available data after the power outage has passed. I was considering to rule out 'CAUSE.CATEGORY' as it may be hard to evaluate the cause of the outage at the time of prediction, however, looking at the data it seems that the majority of outages are caused by weather or sabatoge. I feel that discerning between these two at the time of prediction may be possible or very likely. 
 
 ## Baseline Model
 
-Describe your model and state the features in your model, including how many are quantitative, ordinal, and nominal, and how you performed any necessary encodings. Report the performance of your model and whether or not you believe your current model is “good” and why.
+My first model utilized two columns to predict the duration of outages. These two columns were 'CAUSE.CATEGORY' and 'OUTAGE.START.' With the 'CAUSE.CATEGORY' column I simply utilized one hot encoding as it was a nominal data type, however with the 'OUTAGE.START' column there were more steps involved. This column was of datetime objects, therefore I had to convert it to a quantative value that made sense in context. To do this I first transforms the datetime objects into numbers which corresponded to the hour of the time (24 hour time). I then used a Binarizer with a threshold of 12 to distinguish if the start time was during the AM or PM time of day. 
 
-Tip: Make sure to hit all of the points above: many projects in the past have lost points for not doing so.
+This model did not perform that well evaluated using the R^2 score. There was a relatively low R^2 score that came with this model, which means that the variance of the predicted outage durations and the actual outage duration were not very similar. While, discouraging to see this, I took these findings to better tweak my model and increase its efficacy. 
 
 ## Final Model
 
-State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.
+For my final model I ultimately used two columns as features for the model. These columns included 'CLIMATE.REGION' and 'CAUSE.CATEGORY.' It may seem that two features is lacking to capture the complexity of the case, however, I found that with the more features I added the more my model seemed to struggle. Therefore, I choose to test different features to see which had the most correlation with outage duration and it turned out that 'CLIMATE.REGION' and 'CAUSE.CATEGORY' worked the best. 
 
-Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the method you used to select hyperparameters and your overall model. Describe how your Final Model’s performance is an improvement over your Baseline Model’s performance.
+By using cross validation and GridSearchCV I was able to find that one hot encoding 'CLIMATE.REGION' and using a dictionary to encode the values in 'CAUSE.CATEGORY' oridnally worked relatively well compared to my previous model. I was able to give more weight to certain values in 'CAUSE.CATEGORY' to better aid my model in its predicitons. 
 
-Optional: Include a visualization that describes your model’s performance, e.g. a confusion matrix, if applicable.
+Overall, the efficacy of my model increased almost tenfold after implementing these changes based on the R^2 score evaluation. However, my model is far from perfect and I am aiming to continue to work on the model further in pursuit of better hyperparameters and/or transformations. 
 
 ## Fairness Analysis
 
-Clearly state your choice of Group X and Group Y, your evaluation metric, your null and alternative hypotheses, your choice of test statistic and significance level, the resulting 
-p
--value, and your conclusion.
+To analyze the fairness of my model I decided to use the two groups I used in my hypothesis test. I divided my test groups into east and west regions and tested my model on each population separately. I then found the absolute difference in R^2 score for each population to use as my observed statistic. 
 
-Optional: Embed a visualization related to your permutation test in your website.
-
-
-
-
-
-![Plot of x vs y](assets/missing_hist.pngplot.png)
+I then used another permutation test to test if the two populations were different. This test gave me 500 test statistics, which I compared with my observed statistic to get a p-value. The p-value for my observed statistic turned out to be around 0.4, which is not enough to reject the null hypothesis. This ultimately means that my model is also fair in terms of the two groups, performing similarly for both populations. 
 
 
 
