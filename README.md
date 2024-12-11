@@ -32,9 +32,8 @@ The steps I took to clean the data are as follows:
 |     5 | MN            | MRO           | East North Central | warm               | 2015-07-18 00:00:00 | 02:00:00            | 2015-07-19 00:00:00       | 07:00:00                  | severe weather     | nan                     |   5.97034e+06 |               nan |        7.74 |           2673531 |              1740 | 2.02888e+06 |              250 |               250000 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |
 
 
-
-
 ### Univariate Analysis
+
 
 
 
