@@ -54,7 +54,7 @@ The following histogram depicts the distribution of power outages by outage dura
 The followng dataframe shows the mean outage duration for each of the climate regions. There seems to a general trend of lower mean outage durations for geographic locations that are more inland in the United States
 
 |CLIMATE            |   OUTAGE.DURATION |
-|------------------:|
+|------------------:|------------------:|
 |Central            |          2701.13  |
 |East North Central |          5352.04  |
 |Northeast          |          2991.66  |
@@ -79,7 +79,7 @@ West North Central
 The following pivot table shows the total outage duration for each of the climate regions and climate categories that exist within the data. Although there does not seem to be a huge correlation, generally the areas that are geographically closer to the borders of the United States have higher total outage duration. 
 
 |CLIMATE            |   cold |   normal |   warm |
-|------------------:|---------:|-------:|
+|------------------:|---------:|-------:|-------:|
 |Central            | 181991 |   273579 |  60346 |
 |East North Central | 249614 |   432240 |  51376 |
 |Northeast          | 442527 |   407039 | 179564 |
