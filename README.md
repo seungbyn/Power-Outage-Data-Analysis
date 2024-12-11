@@ -33,6 +33,14 @@ The steps I took to clean the data are as follows:
 
 
 ### Univariate Analysis
+<iframe
+  src="assets/duration_hist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+![Plot of x vs y](assets/missing_hist.pngplot.png)
 
 
 
