@@ -11,3 +11,19 @@ Therefore, the question I will try to answer is: what factors contribute most to
 The relevant columns of the dataset for my analysis include: 'OBS', 'POSTAL.CODE', 'NERC.REGION', 'CLIMATE.REGION', 'CLIMATE.CATEGORY', 'OUTAGE.START.DATE', 'OUTAGE.START.TIME', 'OUTAGE.RESTORATION.DATE', 'OUTAGE.RESTORATION.TIME', 'CAUSE.CATEGORY', 'CAUSE.CATEGORY.DETAIL', 'TOTAL.SALES', 'HURRICANE.NAMES', 'OUTAGE.DURATION', 'DEMAND.LOSS.MW', 'CUSTOMERS.AFFECTED.' (more details on columns below). 
 
 
+## Data Cleaning and Exploratory Data Analysis
+
+To begin analysis we must first comb through the data, making it more viable for analysis:
+
+### Data Cleaning
+The steps I took to clean the data are as follows:
+
+* Retrieve the relevant columns using pandas dataframes.
+* Replace null values with specifically np.nan in python.
+    * Many of the null values in the data set were entered as 'NA' and not np.nan
+* Combine start/end date and start/end time values into date time objects for easier manipulation
+
+### Univariate Analysis
+
+
+
